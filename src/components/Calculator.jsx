@@ -1,14 +1,27 @@
-// import React from 'react'
+import {useState} from 'react'
+import calculate from "../logic/computer"
 
 
-const functionsCalc = ['AC', '+/-', '%', ':', '7', '8','9','x','4','5','6','-','1','2','3','+' ]
+const functionsCalc = ['AC', '+/-', '%', '÷', '7', '8','9','x','4','5','6','-','1','2','3','+' ]
 
 const Calculator = () => {
+    const [calculator, setCalculator] = useState({
+        total: 0,
+        next: null,
+        operation: null
+    })
+
+    const handleClick = (e) => {
+        const current = e.target.textContent
+        const calc = calculate(calculator, current)
+        setCalculator(calc)
+    }
+    const {total, next, operation} = calculator
   return (
     <section className='border-2 border-white m-2 h-[100%] w-full rounded-lg'>
         <h2 
             className="h-20 border-b-2 border-white rounded-s-sm flex justify-end items-center text-4xl px-2">
-            0
+            { next || operation || total || 0 }
         </h2>
         <ul className="grid grid-cols-4 grid-rows-5 h-[88%] text-4xl">
             {functionsCalc.map((item, index) => {
@@ -16,25 +29,34 @@ const Calculator = () => {
                     <li key={index} className="w-[100%]">
                         <button 
                             className="w-full h-full border border-white  rounded-s-sm flex justify-center items-center"
-                            onClick={() => console.log(item)}>
+                            onClick={handleClick}>
                             {item}
                         </button>
                     </li>
                 )
             })}
             <li className="col-span-2">
-                <button className="w-full h-full border border-white  rounded-s-sm flex justify-center items-center">
+                <button 
+                    className="w-full h-full border border-white  rounded-s-sm flex justify-center items-center"
+                    onClick={handleClick}
+                    >
                     0
                 </button>
             </li>
             <li>
-                <button className="w-full h-full border border-white  rounded-s-sm flex justify-center items-center">
+                <button 
+                    className="w-full h-full border border-white  rounded-s-sm flex justify-center items-center"
+                    onClick={handleClick}
+                    >
                     .
                 </button>
             </li>
             <li>
-                <button className="w-full h-full border border-white  rounded-s-sm flex justify-center items-center">
-                    +
+                <button 
+                    className="w-full h-full border border-white  rounded-s-sm flex justify-center items-center"
+                    onClick={handleClick}
+                    >
+                    =
                 </button>
             </li>
         </ul>
