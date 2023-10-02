@@ -16,12 +16,12 @@ const Calculator = () => {
         const calc = calculate(calculator, current)
         setCalculator(calc)
     }
-    const {total, next, operation} = calculator
+    const {total, next} = calculator
   return (
     <section className='border-2 border-white m-2 h-[100%] w-full lg:w-[20%] lg:h-[70%] rounded-lg'>
         <h2 
             className="h-20 border-b-2 border-white  rounded-s-sm flex justify-end items-center text-4xl px-2">
-            { next || operation || total || 0 }
+            { next || total || 0 }
         </h2>
         <ul className="grid grid-cols-4 grid-rows-5 h-[88%] lg:h-[84%] text-4xl lg:text-xl">
             {functionsCalc.map((item, index) => {
